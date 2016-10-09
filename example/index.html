@@ -5,13 +5,31 @@
 </head>
 <body>
 
+	<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+	<script>
+		window.mesour = window.mesour || {};
+		mesour.testWidget = mesour.testWidget || [];
+		mesour.testWidget.push(['method', 654]);
+	</script>
+
 	<script src="../dist/mesour.min.js"></script>
 
 	<script>
+		var TestWidget = function() {
+			this.method = function(val) {
+				console.log(val);
+			};
 
-		//todo: add usage
+			this.live = function() {
+				console.log('live');
+			};
+		};
 
+		mesour.createWidget('testWidget', new TestWidget());
 	</script>
+
+	<a href="" data-mesour="ajax">test</a>
 
 </body>
 </html>

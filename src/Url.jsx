@@ -56,7 +56,7 @@ export default class Url
 	 * @param {boolean} full
 	 * @returns {{}}
 	 */
-	static getCurrentQuery(full) {
+	getCurrentQuery(full) {
 		var query = window.location.search.substr(1);
 		var vars = query.split('&');
 		var data = {};
@@ -77,7 +77,7 @@ export default class Url
 	 * @param {string} [prefix]
 	 * @returns {string}
 	 */
-	static serialize(obj, prefix) {
+	serialize(obj, prefix) {
 		var str = [];
 		for (var p in obj) {
 			if (obj.hasOwnProperty(p)) {

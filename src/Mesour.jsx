@@ -20,7 +20,7 @@ export default class Mesour
 		this.createWidget('parameters', new Parameters(this));
 		this.createWidget('url', new Url(this));
 
-		var _this = this;
+		let _this = this;
 		jQuery(document).on('click.mesour-ajax', '[data-mesour=ajax]:not(form)', function (e) {
 			e.preventDefault();
 			jQuery.get(jQuery(this).attr('href')).complete(_this.redrawCallback);
@@ -40,7 +40,7 @@ export default class Mesour
 			throw new Error('Method push if reserved for asynchronous data loading.');
 		}
 		instance.push = function(value) {
-			var method = value[0];
+			let method = value[0];
 			delete value[0];
 			instance[method].apply(instance, Helper.cleanArray(value));
 		};
@@ -60,12 +60,12 @@ export default class Mesour
 		}
 
 		if (this.oldObject[name]) {
-			var arr = this.oldObject[name];
+			let arr = this.oldObject[name];
 			if (!arr instanceof Array) {
 				throw new Error('Value must be array');
 			}
-			for (var i = 0; i < arr.length; i++) {
-				var method = arr[i][0];
+			for (let i = 0; i < arr.length; i++) {
+				let method = arr[i][0];
 				delete arr[i][0];
 				if (typeof instance[method] !== 'function') {
 					throw new Error('Method ' + method + ' does not exits on mesour.' + name + ' widget.');
@@ -80,19 +80,20 @@ export default class Mesour
 	/**
 	 * @param {object} response
 	 */
-	redrawCallback(response) {
-		var callback = function () {
-			var $this = jQuery(this),
+	redrawCallback(response)
+	{
+		let callback = function () {
+			let $this = jQuery(this),
 				id = $this.attr('id'),
 				el = jQuery('#' + id);
 			if (el.is('*')) {
 				el.replaceWith($this);
 			}
 		};
-		var html = jQuery(response.responseText);
+		let html = jQuery(response.responseText);
 		html.find("[id^='m_snippet-']").each(callback);
 		html.filter("[id^='m_snippet-']").each(callback);
-	};
+	}
 
 	parseValue(value, data)
 	{

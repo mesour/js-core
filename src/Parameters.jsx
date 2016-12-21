@@ -11,8 +11,9 @@ export default class Parameters
 		this.mesour = mesour;
 	}
 
-	set(key, value) {
+	set(key, value)
+	{
 		this.params[key] = value;
-	};
+	}
 
 }

@@ -17,8 +17,8 @@ export default class Mesour
 	{
 		this.oldObject = oldObject || {};
 
-		this.createWidget('parameters', new Parameters(this));
-		this.createWidget('url', new Url(this));
+		this.createWidget('parameters', new Parameters());
+		this.createWidget('url', new Url(() => {return this}));
 
 		let _this = this;
 		jQuery(document).on('click.mesour-ajax', '[data-mesour=ajax]:not(form)', function (e) {
@@ -82,17 +82,32 @@ export default class Mesour
 	 */
 	redrawCallback(response)
 	{
-		let callback = function () {
-			let $this = jQuery(this),
-				id = $this.attr('id'),
-				el = jQuery('#' + id);
-			if (el.is('*')) {
-				el.replaceWith($this);
+		if (response.responseJSON) {
+			let json = response.responseJSON;
+			if (json.redirect && typeof json.redirect === 'string') {
+				window.location.href = json.redirect;
 			}
-		};
-		let html = jQuery(response.responseText);
-		html.find("[id^='m_snippet-']").each(callback);
-		html.filter("[id^='m_snippet-']").each(callback);
+		} else {
+			let html;
+			try {
+				html = jQuery(response.responseText);
+			} catch (exception) {
+				html = null;
+			}
+
+			if (html) {
+				let callback = function () {
+					let $this = jQuery(this),
+						id = $this.attr('id'),
+						el = jQuery('#' + id);
+					if (el.is('*')) {
+						el.replaceWith($this);
+					}
+				};
+				html.find("[id^='m_snippet-']").each(callback);
+				html.filter("[id^='m_snippet-']").each(callback);
+			}
+		}
 	}
 
 	parseValue(value, data)

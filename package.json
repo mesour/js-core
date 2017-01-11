@@ -1,6 +1,6 @@
 {
   "name": "mesour-core",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Mesour core component",
   "main": "index.js",
   "devDependencies": {
@@ -15,7 +15,8 @@
     "compile": "babel -c -d ./lib ./src/",
     "prepublish": "npm run compile && npm run-script build:js",
     "postpublish": "rm -r ./lib",
-    "build:js": "webpack && webpack --config webpack.config.min.js"
+    "build:js": "webpack && webpack --config webpack.config.min.js",
+    "watch:js": "webpack --progress --colors --watch"
   },
   "keywords": [
     "components"

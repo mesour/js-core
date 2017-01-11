@@ -5,14 +5,19 @@
 export default class Url
 {
 
-	mesour;
+    mesourClosure;
 
 	/**
 	 * @param {Mesour} mesour
 	 */
-	constructor(mesour)
+	constructor(mesourClosure)
 	{
-		this.mesour = mesour;
+		this.mesourClosure = mesourClosure;
+	}
+
+	getMesour()
+	{
+		return this.mesourClosure();
 	}
 
 	createLink(link, handle, data, post)
@@ -27,16 +32,16 @@ export default class Url
 
 		let args = {};
 		args['m_do'] = link + '-' + handle;
-		if(this.mesour.parameters.params) {
-			for(let i in this.mesour.parameters.params) {
-				if(!this.mesour.parameters.params.hasOwnProperty(i)) {
+		if(this.getMesour().parameters.params) {
+			for(let i in this.getMesour().parameters.params) {
+				if(!this.getMesour().parameters.params.hasOwnProperty(i)) {
 					continue;
 				}
-				args[i] = this.mesour.parameters.params[i];
+				args[i] = this.getMesour().parameters.params[i];
 			}
 		}
 		if (!post) {
-			args = jQuery.extend(args, Url.getCurrentQuery(), newArgs);
+			args = jQuery.extend(args, this.getCurrentQuery(), newArgs);
 			let serialized = Url.serialize(args);
 			if (serialized && serialized !== '') {
 				url += '?' + serialized;
@@ -44,7 +49,7 @@ export default class Url
 			return url;
 		} else {
 			args['m_do'] = link + '-' + handle;
-			let currentData = jQuery.extend(Url.getCurrentQuery(), newArgs);
+			let currentData = jQuery.extend(this.getCurrentQuery(), newArgs);
 			let serialized = Url.serialize(args);
 			if (serialized && serialized !== '') {
 				url += '?' + serialized;
@@ -57,7 +62,7 @@ export default class Url
 	 * @param {boolean} full
 	 * @returns {object}
 	 */
-	static getCurrentQuery(full)
+	getCurrentQuery(full)
 	{
 		let query = window.location.search.substr(1);
 		let vars = query.split('&');

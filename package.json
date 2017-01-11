@@ -1,6 +1,6 @@
 {
   "name": "mesour-core",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Mesour core component",
   "main": "index.js",
   "devDependencies": {

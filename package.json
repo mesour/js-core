@@ -25,10 +25,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://git.mesour.com/mesour/mesour-core"
+    "url": "git+https://github.com/mesour/js-core"
   },
   "bugs": {
-    "url": "https://git.mesour.com/mesour/mesour-core/issues"
+    "url": "https://github.com/mesour/js-core/issues"
   },
-  "homepage": "https://git.mesour.com/mesour/mesour-core#readme"
+  "homepage": "https://github.com/mesour/js-core#readme"
 }
